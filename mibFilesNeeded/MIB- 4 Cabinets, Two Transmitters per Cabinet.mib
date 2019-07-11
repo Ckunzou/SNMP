@@ -1,0 +1,2238 @@
+PARALLAX DEFINITIONS ::= BEGIN
+
+-- J.Fiore 11 20 2017 : Document SNMP MIB Parallax
+-- S.Butler 01 04 2018 : Document SNMP MIB Parallax
+
+parallax MODULE-IDENTITY
+	LAST_UPDATED "2018010400000Z"
+	ORGANIZATION "www.comarktv.com"
+	CONTACT_INFO 
+		"postal: Comark Communications
+			 94 Feeding Hills Road
+			 Southwick, MA 01077
+		 email: parallaxsupport@comarktv.com"
+	DESCRIPTION
+		"Management Information Base for Hitachi Kokusai Electric Comark Parallax Transmitter"
+	DESCRIPTION
+		"Early draft for testing purposes"
+	::= { enterprises 46785 }
+
+
+--
+-- Top Level Structure
+--
+
+parallaxVariables	OBJECT IDENTIFIER ::= { parallax 30 }
+parallaxVariables2	OBJECT IDENTIFIER ::= { parallax 31 }
+parallaxVariables3	OBJECT IDENTIFIER ::= { parallax 32 }
+parallaxVariables4	OBJECT IDENTIFIER ::= { parallax 33 }
+
+--
+-- Access Level
+--
+
+parallaxTransmitterA	OBJECT IDENTIFIER ::= { parallaxVariables 1 }
+parallaxTransmitterB	OBJECT IDENTIFIER ::= { parallaxVariables 2 }
+parallaxCabinetNodes	OBJECT IDENTIFIER ::= { parallaxVariables 3 }
+parallaxCabinetFaults	OBJECT IDENTIFIER ::= { parallaxVariables 4 }
+
+parallaxTransmitterA2	OBJECT IDENTIFIER ::= { parallaxVariables2 1 }
+parallaxTransmitterB2	OBJECT IDENTIFIER ::= { parallaxVariables2 2 }
+parallaxCabinetNodes2	OBJECT IDENTIFIER ::= { parallaxVariables2 3 }
+parallaxCabinetFaults2	OBJECT IDENTIFIER ::= { parallaxVariables2 4 }
+
+parallaxTransmitterA3	OBJECT IDENTIFIER ::= { parallaxVariables3 1 }
+parallaxTransmitterB3	OBJECT IDENTIFIER ::= { parallaxVariables3 2 }
+parallaxCabinetNodes3	OBJECT IDENTIFIER ::= { parallaxVariables3 3 }
+parallaxCabinetFaults3	OBJECT IDENTIFIER ::= { parallaxVariables3 4 }
+
+parallaxTransmitterA4	OBJECT IDENTIFIER ::= { parallaxVariables4 1 }
+parallaxTransmitterB4	OBJECT IDENTIFIER ::= { parallaxVariables4 2 }
+parallaxCabinetNodes4	OBJECT IDENTIFIER ::= { parallaxVariables4 3 }
+parallaxCabinetFaults4	OBJECT IDENTIFIER ::= { parallaxVariables4 4 }
+
+parallaxReadWriteA	OBJECT IDENTIFIER ::= { parallaxTransmitterA 1 }
+parallaxReadOnlyA	OBJECT IDENTIFIER ::= { parallaxTransmitterA 2 }
+parallaxReadWriteB	OBJECT IDENTIFIER ::= { parallaxTransmitterB 1 }
+parallaxReadOnlyB	OBJECT IDENTIFIER ::= { parallaxTransmitterB 2 }
+
+parallaxReadWriteA2	OBJECT IDENTIFIER ::= { parallaxTransmitterA2 1 }
+parallaxReadOnlyA2	OBJECT IDENTIFIER ::= { parallaxTransmitterA2 2 }
+parallaxReadWriteB2	OBJECT IDENTIFIER ::= { parallaxTransmitterB2 1 }
+parallaxReadOnlyB2	OBJECT IDENTIFIER ::= { parallaxTransmitterB2 2 }
+
+parallaxReadWriteA3	OBJECT IDENTIFIER ::= { parallaxTransmitterA3 1 }
+parallaxReadOnlyA3	OBJECT IDENTIFIER ::= { parallaxTransmitterA3 2 }
+parallaxReadWriteB3	OBJECT IDENTIFIER ::= { parallaxTransmitterB3 1 }
+parallaxReadOnlyB3	OBJECT IDENTIFIER ::= { parallaxTransmitterB3 2 }
+
+parallaxReadWriteA4	OBJECT IDENTIFIER ::= { parallaxTransmitterA4 1 }
+parallaxReadOnlyA4	OBJECT IDENTIFIER ::= { parallaxTransmitterA4 2 }
+parallaxReadWriteB4	OBJECT IDENTIFIER ::= { parallaxTransmitterB4 1 }
+parallaxReadOnlyB4	OBJECT IDENTIFIER ::= { parallaxTransmitterB4 2 }
+
+--
+-- Read/Write objects Cabinet 1
+--
+
+txStateA OBJECT-TYPE
+	SYNTAX		OCTET STRING (SIZE(8))
+	MAX-ACCESS	read-write
+	STATUS		current
+	DESCRIPTION
+		"The current state of RF transmission from the Parallax cabinet.
+		 0 indicates that the cabinet is currently not transmitting.
+		 1 indicates that the cabinet is in TX ON mode."
+	DEFVAL { 0 }
+	::= { parallaxReadWriteA 1 }
+
+txStateB OBJECT-TYPE
+	SYNTAX		OCTET STRING (SIZE(8))
+	MAX-ACCESS	read-write
+	STATUS		current
+	DESCRIPTION
+		"The current state of RF transmission from the Parallax cabinet.
+		 0 indicates that the cabinet is currently not transmitting.
+		 1 indicates that the cabinet is in TX ON mode."
+	DEFVAL { 0 }
+	::= { parallaxReadWriteB 1 }
+
+controlStateA OBJECT-TYPE
+	SYNTAX		INTEGER
+	MAX-ACCESS	read-write
+	STATUS		current
+	DESCRIPTION
+		"This state reflects whether the Parallax transmitter is operating in local or remote mode."	
+	DEFVAL { 0 }
+	::= { parallaxReadWriteA 2 }
+
+controlStateB OBJECT-TYPE
+	SYNTAX		INTEGER
+	MAX-ACCESS	read-write
+	STATUS		current
+	DESCRIPTION
+		"This state reflects whether the Parallax transmitter is operating in local or remote mode."	
+	DEFVAL { 0 }
+	::= { parallaxReadWriteB 2 }
+
+activeExciterA OBJECT-TYPE
+	SYNTAX		INTEGER
+	MAX-ACCESS	read-write
+	STATUS		current
+	DESCRIPTION
+		"Reflects the exciter that is currently in use."
+	DEFVAL { 1 }
+	::= { parallaxReadWriteA 3 }
+
+activeExciterB OBJECT-TYPE
+	SYNTAX		INTEGER
+	MAX-ACCESS	read-write
+	STATUS		current
+	DESCRIPTION
+		"Reflects the exciter that is currently in use."
+	DEFVAL { 1 }
+	::= { parallaxReadWriteB 3 }
+
+activePreampA OBJECT-TYPE
+	SYNTAX		INTEGER
+	MAX-ACCESS	read-write
+	STATUS		current
+	DESCRIPTION
+		"Reflects the preamp that is currently in use."
+	DEFVAL { 1 }
+	::= { parallaxReadWriteA 4 }
+
+activePreampB OBJECT-TYPE
+	SYNTAX		INTEGER
+	MAX-ACCESS	read-write
+	STATUS		current
+	DESCRIPTION
+		"Reflects the preamp that is currently in use."
+	DEFVAL { 1 }
+	::= { parallaxReadWriteB 4 }
+
+activeOutputA OBJECT-TYPE
+	SYNTAX		INTEGER
+	MAX-ACCESS	read-write
+	STATUS		current
+	DESCRIPTION
+		"Reflects the output that is currently active.
+		 0 indicates that the active output is the station antenna.
+		 1 indicates that the active output is the RF load."
+	DEFVAL { 1 }
+	::= { parallaxReadWriteA 5 }
+
+activeOutputB OBJECT-TYPE
+	SYNTAX		INTEGER
+	MAX-ACCESS	read-write
+	STATUS		current
+	DESCRIPTION
+		"Reflects the output that is currently active.
+		 0 indicates that the active output is the station antenna.
+		 1 indicates that the active output is the RF load."
+	DEFVAL { 1 }
+	::= { parallaxReadWriteB 5 }
+
+resetsFaultsA OBJECT-TYPE
+	SYNTAX		INTEGER
+	MAX-ACCESS	read-write
+	STATUS		current
+	DESCRIPTION	
+		"This resets cabinet faults."
+	DEFVAL { 0 }
+	::= { parallaxReadWriteA 6 }
+
+resetsFaultsB OBJECT-TYPE
+	SYNTAX		INTEGER
+	MAX-ACCESS	read-write
+	STATUS		current
+	DESCRIPTION	
+		"This resets cabinet faults."
+	DEFVAL { 0 }
+	::= { parallaxReadWriteB 6 }
+
+InterlockA OBJECT-TYPE
+	SYNTAX		OCTET STRING (SIZE(8))
+	MAX-ACCESS	read-write
+	STATUS		current
+	DESCRIPTION	
+		"Open = TX off, Close = Enable XTMR."
+	DEFVAL { 0 }
+	::= { parallaxReadWriteA 7 }
+
+InterlockB OBJECT-TYPE
+	SYNTAX		OCTET STRING (SIZE(8))
+	MAX-ACCESS	read-write
+	STATUS		current
+	DESCRIPTION	
+		"Open = TX off, Close = Enable XTMR."
+	DEFVAL { 0 }
+	::= { parallaxReadWriteB 7 }
+
+desiredForwardPowerA OBJECT-TYPE
+	SYNTAX		OCTET STRING (SIZE(8))
+	MAX-ACCESS	read-write
+	STATUS		current
+	DESCRIPTION	
+		"Set the desired value for Forward Power."
+	DEFVAL { 0 }
+	::= { parallaxReadWriteA 8 }
+
+desiredForwardPowerB OBJECT-TYPE
+	SYNTAX		OCTET STRING (SIZE(8))
+	MAX-ACCESS	read-write
+	STATUS		current
+	DESCRIPTION	
+		"Set the desired value for Forward Power."
+	DEFVAL { 0 }
+	::= { parallaxReadWriteB 8 }
+
+licensedTPOA OBJECT-TYPE
+	SYNTAX		OCTET STRING (SIZE(8))
+	MAX-ACCESS	read-write
+	STATUS		current
+	DESCRIPTION	
+		"Set the Value for License TPO."
+	DEFVAL { 0 }
+	::= { parallaxReadWriteA 9 }
+
+licensedTPOB OBJECT-TYPE
+	SYNTAX		OCTET STRING (SIZE(8))
+	MAX-ACCESS	read-write
+	STATUS		current
+	DESCRIPTION	
+		"Set the Value for License TPO."
+	DEFVAL { 0 }
+	::= { parallaxReadWriteB 9 }
+
+--
+-- Read only objects Cabinet 1
+--
+
+forwardPowerA OBJECT-TYPE
+	SYNTAX		OCTET STRING (SIZE(8))
+	MAX-ACCESS 	read-write
+	STATUS		current
+	DESCRIPTION
+		""The current forward power output of the Parallax transmitter measured in watts."
+	DEFVAL { 0 }
+	::= { parallaxReadOnlyA 1 }
+
+forwardPowerB OBJECT-TYPE
+	SYNTAX		INTEGER
+	MAX-ACCESS 	read-write
+	STATUS		current
+	DESCRIPTION
+		"The current forward power output of the Parallax transmitter measured in watts."
+	DEFVAL { 0 }
+	::= { parallaxReadOnlyB 1 }
+
+forwardPowerPercentA OBJECT-TYPE
+	SYNTAX		OCTET STRING (SIZE(8))
+	MAX-ACCESS 	read-only
+	STATUS		current
+	DESCRIPTION
+		"The current forward power output of the Parallax transmitter measured as a percentage of the transmitter's total power output allotted by the FCC."
+	DEFVAL { 0 }
+	::= { parallaxReadOnlyA 2 }
+
+forwardPowerPercentB OBJECT-TYPE
+	SYNTAX		OCTET STRING (SIZE(8))
+	MAX-ACCESS 	read-only
+	STATUS		current
+	DESCRIPTION
+		"The current forward power output of the Parallax transmitter measured as a percentage of the transmitter's total power output allotted by the FCC."
+	DEFVAL { 0 }
+	::= { parallaxReadOnlyB 2 }
+
+reflectedPowerA OBJECT-TYPE
+	SYNTAX		OCTET STRING (SIZE(8))
+	MAX-ACCESS	read-only
+	STATUS		current
+	DESCRIPTION
+		"The current reflected power of the Parallax transmitter measured as a percentage."
+	DEFVAL { 0 }
+	::= { parallaxReadOnlyA 3 }
+
+reflectedPowerB OBJECT-TYPE
+	SYNTAX		OCTET STRING (SIZE(8))
+	MAX-ACCESS	read-only
+	STATUS		current
+	DESCRIPTION
+		"The current reflected power of the Parallax transmitter measured as a percentage."
+	DEFVAL { 0 }
+	::= { parallaxReadOnlyB 3 }
+
+upperShoulderA OBJECT-TYPE
+	SYNTAX		OCTET STRING (SIZE(8))
+	MAX-ACCESS	read-only
+	STATUS		current
+	DESCRIPTION	
+		"The upper shoulder value, meausered from the exciter."
+	DEFVAL { 0 }
+	::= { parallaxReadOnlyA 4 }
+
+upperShoulderB OBJECT-TYPE
+	SYNTAX		OCTET STRING (SIZE(8))
+	MAX-ACCESS	read-only
+	STATUS		current
+	DESCRIPTION	
+		"The upper shoulder value, meausered from the exciter."
+	DEFVAL { 0 }
+	::= { parallaxReadOnlyB 4 }
+
+lowerShoulderA OBJECT-TYPE
+	SYNTAX		OCTET STRING (SIZE(8))
+	MAX-ACCESS	read-only
+	STATUS		current
+	DESCRIPTION	
+		"The lower shoulder value, meausered from the exciter."
+	DEFVAL { 0 }
+	::= { parallaxReadOnlyA 5 }
+
+lowerShoulderB OBJECT-TYPE
+	SYNTAX		OCTET STRING (SIZE(8))
+	MAX-ACCESS	read-only
+	STATUS		current
+	DESCRIPTION	
+		"The lower shoulder value, meausered from the exciter."
+	DEFVAL { 0 }
+	::= { parallaxReadOnlyB 5 }
+
+VSWRstatusA OBJECT-TYPE
+	SYNTAX		OCTET STRING (SIZE(8))
+	MAX-ACCESS	read-only
+	STATUS		current
+	DESCRIPTION	
+		"High reflected power."
+	DEFVAL { 0 }
+	::= { parallaxReadOnlyA 6 }
+
+VSWRstatusB OBJECT-TYPE
+	SYNTAX		OCTET STRING (SIZE(8))
+	MAX-ACCESS	read-only
+	STATUS		current
+	DESCRIPTION	
+		"High reflected power."
+	DEFVAL { 0 }
+	::= { parallaxReadOnlyB 6 }
+
+--
+-- Nodes for cabinet 1
+--
+
+PowerSupplyNode OBJECT-TYPE
+	SYNTAX		OCTET STRING (SIZE(8))
+	MAX-ACCESS 	read-only
+	STATUS		current
+	DESCRIPTION
+		"Power Supply Node Data."
+	DEFVAL { 1 }
+	::= { parallaxCabinetNodes 1 }
+
+RFSwitchNodeA OBJECT-TYPE
+	SYNTAX		OCTET STRING (SIZE(8))
+	MAX-ACCESS 	read-only
+	STATUS		current
+	DESCRIPTION
+		"RF Switch Node Data, transmitter A."
+	DEFVAL { 1 }
+	::= { parallaxCabinetNodes 2 }
+
+RFSwitchNodeB OBJECT-TYPE
+	SYNTAX		OCTET STRING (SIZE(8))
+	MAX-ACCESS 	read-only
+	STATUS		current
+	DESCRIPTION
+		"RF Switch Node Data, transmitter B."
+	DEFVAL { 1 }
+	::= { parallaxCabinetNodes 3 }
+
+InternalTemperatureNode OBJECT-TYPE
+	SYNTAX		OCTET STRING (SIZE(8))
+	MAX-ACCESS 	read-only
+	STATUS		current
+	DESCRIPTION
+		"Internal Temperature Node Data."
+	DEFVAL { 1 }
+	::= { parallaxCabinetNodes 4 }
+
+ExternalNode OBJECT-TYPE
+	SYNTAX		OCTET STRING (SIZE(8))
+	MAX-ACCESS 	read-only
+	STATUS		current
+	DESCRIPTION
+		"External Node Data."
+	DEFVAL { 1 }
+	::= { parallaxCabinetNodes 5 }
+
+1RFLoadNode OBJECT-TYPE
+	SYNTAX		OCTET STRING (SIZE(8))
+	MAX-ACCESS 	read-only
+	STATUS		current
+	DESCRIPTION
+		"RF Load Node #1 Data."
+	DEFVAL { 1 }
+	::= { parallaxCabinetNodes 6 }
+
+2RFLoadNode OBJECT-TYPE
+	SYNTAX		OCTET STRING (SIZE(8))
+	MAX-ACCESS 	read-only
+	STATUS		current
+	DESCRIPTION
+		"RF Load Node #2 Data."
+	DEFVAL { 1 }
+	::= { parallaxCabinetNodes 7 }
+
+3RFLoadNode OBJECT-TYPE
+	SYNTAX		OCTET STRING (SIZE(8))
+	MAX-ACCESS 	read-only
+	STATUS		current
+	DESCRIPTION
+		"RF Load Node #3 Data."
+	DEFVAL { 1 }
+	::= { parallaxCabinetNodes 8 }
+
+4RFLoadNode OBJECT-TYPE
+	SYNTAX		OCTET STRING (SIZE(8))
+	MAX-ACCESS 	read-only
+	STATUS		current
+	DESCRIPTION
+		"RF Load Node #4 Data."
+	DEFVAL { 1 }
+	::= { parallaxCabinetNodes 9 }
+
+RFPhaseNode OBJECT-TYPE
+	SYNTAX		OCTET STRING (SIZE(8))
+	MAX-ACCESS 	read-only
+	STATUS		current
+	DESCRIPTION
+		"RF Phase Node Data."
+	DEFVAL { 1 }
+	::= { parallaxCabinetNodes 10 }
+
+--
+-- Parallax Faults for Cabinet 1
+--
+
+AmplifierFault OBJECT-TYPE
+	SYNTAX		INTEGER
+	MAX-ACCESS	read-write
+	STATUS		current
+	DESCRIPTION
+		"Parallax Amplifier fault triggered."
+	DEFVAL { 0 }
+	::= { parallaxCabinetFaults 1 }
+
+AGCSwitchFault OBJECT-TYPE
+	SYNTAX		INTEGER
+	MAX-ACCESS	read-write
+	STATUS		current
+	DESCRIPTION
+		"Parallax AGC Switch fault triggered."
+	DEFVAL { 0 }
+	::= { parallaxCabinetFaults 2 }
+
+CriticalFault OBJECT-TYPE
+	SYNTAX		INTEGER
+	MAX-ACCESS	read-write
+	STATUS		current
+	DESCRIPTION
+		"Parallax critical fault triggered."
+	DEFVAL { 0 }
+	::= { parallaxCabinetFaults 3 }
+
+ExciterFault OBJECT-TYPE
+	SYNTAX		INTEGER
+	MAX-ACCESS	read-write
+	STATUS		current
+	DESCRIPTION
+		"Parallax exciter fault triggered."
+	DEFVAL { 0 }
+	::= { parallaxCabinetFaults 4 }
+
+PreampFault OBJECT-TYPE
+	SYNTAX		INTEGER
+	MAX-ACCESS	read-write
+	STATUS		current
+	DESCRIPTION
+		"Parallax preamp fault triggered."
+	DEFVAL { 0 }
+	::= { parallaxCabinetFaults 5 }
+
+CoolingFault OBJECT-TYPE
+	SYNTAX		INTEGER
+	MAX-ACCESS	read-write
+	STATUS		current
+	DESCRIPTION
+		"Parallax cooling fault triggered."
+	DEFVAL { 0 }
+	::= { parallaxCabinetFaults 6 }
+
+OutputFault OBJECT-TYPE
+	SYNTAX		INTEGER
+	MAX-ACCESS	read-write
+	STATUS		current
+	DESCRIPTION
+		"Parallax output fault triggered."
+	DEFVAL { 0 }
+	::= { parallaxCabinetFaults 7 }
+
+PowerSupplyFault OBJECT-TYPE
+	SYNTAX		INTEGER
+	MAX-ACCESS	read-write
+	STATUS		current
+	DESCRIPTION
+		"Parallax power supply fault triggered."
+	DEFVAL { 0 }
+	::= { parallaxCabinetFaults 8 }
+
+--
+-- Other Varaibles for Cabinet 1
+--
+
+activeCooling OBJECT-TYPE
+	SYNTAX		INTEGER
+	MAX-ACCESS 	read-write
+	STATUS		current
+	DESCRIPTION
+		"Reflects the cooling pump that is currently active."
+	DEFVAL { 1 }
+	::= { parallaxVariables 5 }
+
+coolantLevel OBJECT-TYPE
+	SYNTAX		INTEGER
+	MAX-ACCESS	read-only
+	STATUS		current
+	DESCRIPTION
+		"Indicates the state of the coolant level in the tank. Can either be normal, at a warning level, or fault."
+	DEFVAL { 0 }
+	::= { parallaxVariables 6 }
+
+coolantTankTemp OBJECT-TYPE
+	SYNTAX		OCTET STRING (SIZE(8))
+	MAX-ACCESS	read-only
+	STATUS		current
+	DESCRIPTION
+		"The temperature of the coolant tank, measured in Celcius."
+	DEFVAL { 0 }
+	::= { parallaxVariables 7 }
+
+heatExchangerFlow OBJECT-TYPE
+	SYNTAX		OCTET STRING (SIZE(8))
+	MAX-ACCESS	read-only
+	STATUS		current
+	DESCRIPTION
+		"The current flow rate of the heat exchanger, measured in gallons per minute."
+	DEFVAL { 0 }
+	::= { parallaxVariables 8 }
+
+inletTemperature OBJECT-TYPE
+	SYNTAX		OCTET STRING (SIZE(8))
+	MAX-ACCESS	read-only
+	STATUS		current
+	DESCRIPTION
+		"The temperature of the coolant measured at the inlet, measured in Celcius."
+	DEFVAL { 0 }
+	::= { parallaxVariables 9 }
+
+outletTemperature OBJECT-TYPE
+	SYNTAX		OCTET STRING (SIZE(8))
+	MAX-ACCESS	read-only
+	STATUS		current
+	DESCRIPTION
+		"The temperature of the coolant measured at the outlet, measured in Celcius."
+	DEFVAL { 0 }
+	::= { parallaxVariables 10 }
+
+cabinetAirTemperature OBJECT-TYPE
+	SYNTAX		OCTET STRING (SIZE(8))
+	MAX-ACCESS	read-only
+	STATUS		current
+	DESCRIPTION
+		"The current air temperature inside the Parallax transmitter cabinet."
+	DEFVAL { 0 }
+	::= { parallaxVariables 11 }
+
+powerSupply1Voltage OBJECT-TYPE
+	SYNTAX		OCTET STRING (SIZE(8))
+	MAX-ACCESS	read-only
+	STATUS		current
+	DESCRIPTION	
+		"The voltage of power supply 1"
+	DEFVAL { 0 }
+	::= { parallaxVariables 12 }
+
+powerSupply2Voltage OBJECT-TYPE
+	SYNTAX		OCTET STRING (SIZE(8))
+	MAX-ACCESS	read-only
+	STATUS		current
+	DESCRIPTION	
+		"The voltage of power supply 2"
+	DEFVAL { 0 }
+	::= { parallaxVariables 13 }
+
+--
+-- Read/Write objects Cabinet 2
+--
+
+txStateA2 OBJECT-TYPE
+	SYNTAX		OCTET STRING (SIZE(8))
+	MAX-ACCESS	read-write
+	STATUS		current
+	DESCRIPTION
+		"The current state of RF transmission from the Parallax cabinet.
+		 0 indicates that the cabinet is currently not transmitting.
+		 1 indicates that the cabinet is in TX ON mode."
+	DEFVAL { 0 }
+	::= { parallaxReadWriteA2 1 }
+
+txStateB2 OBJECT-TYPE
+	SYNTAX		OCTET STRING (SIZE(8))
+	MAX-ACCESS	read-write
+	STATUS		current
+	DESCRIPTION
+		"The current state of RF transmission from the Parallax cabinet.
+		 0 indicates that the cabinet is currently not transmitting.
+		 1 indicates that the cabinet is in TX ON mode."
+	DEFVAL { 0 }
+	::= { parallaxReadWriteB2 1 }
+
+controlStateA2 OBJECT-TYPE
+	SYNTAX		INTEGER
+	MAX-ACCESS	read-write
+	STATUS		current
+	DESCRIPTION
+		"This state reflects whether the Parallax transmitter is operating in local or remote mode."	
+	DEFVAL { 0 }
+	::= { parallaxReadWriteA2 2 }
+
+controlStateB2 OBJECT-TYPE
+	SYNTAX		INTEGER
+	MAX-ACCESS	read-write
+	STATUS		current
+	DESCRIPTION
+		"This state reflects whether the Parallax transmitter is operating in local or remote mode."	
+	DEFVAL { 0 }
+	::= { parallaxReadWriteB2 2 }
+
+activeExciterA2 OBJECT-TYPE
+	SYNTAX		INTEGER
+	MAX-ACCESS	read-write
+	STATUS		current
+	DESCRIPTION
+		"Reflects the exciter that is currently in use."
+	DEFVAL { 1 }
+	::= { parallaxReadWriteA2 3 }
+
+activeExciterB2 OBJECT-TYPE
+	SYNTAX		INTEGER
+	MAX-ACCESS	read-write
+	STATUS		current
+	DESCRIPTION
+		"Reflects the exciter that is currently in use."
+	DEFVAL { 1 }
+	::= { parallaxReadWriteB2 3 }
+
+activePreampA2 OBJECT-TYPE
+	SYNTAX		INTEGER
+	MAX-ACCESS	read-write
+	STATUS		current
+	DESCRIPTION
+		"Reflects the preamp that is currently in use."
+	DEFVAL { 1 }
+	::= { parallaxReadWriteA2 4 }
+
+activePreampB2 OBJECT-TYPE
+	SYNTAX		INTEGER
+	MAX-ACCESS	read-write
+	STATUS		current
+	DESCRIPTION
+		"Reflects the preamp that is currently in use."
+	DEFVAL { 1 }
+	::= { parallaxReadWriteB2 4 }
+
+activeOutputA2 OBJECT-TYPE
+	SYNTAX		INTEGER
+	MAX-ACCESS	read-write
+	STATUS		current
+	DESCRIPTION
+		"Reflects the output that is currently active.
+		 0 indicates that the active output is the station antenna.
+		 1 indicates that the active output is the RF load."
+	DEFVAL { 1 }
+	::= { parallaxReadWriteA2 5 }
+
+activeOutputB2 OBJECT-TYPE
+	SYNTAX		INTEGER
+	MAX-ACCESS	read-write
+	STATUS		current
+	DESCRIPTION
+		"Reflects the output that is currently active.
+		 0 indicates that the active output is the station antenna.
+		 1 indicates that the active output is the RF load."
+	DEFVAL { 1 }
+	::= { parallaxReadWriteB2 5 }
+
+resetsFaultsA2 OBJECT-TYPE
+	SYNTAX		INTEGER
+	MAX-ACCESS	read-write
+	STATUS		current
+	DESCRIPTION	
+		"This resets cabinet faults."
+	DEFVAL { 0 }
+	::= { parallaxReadWriteA2 6 }
+
+resetsFaultsB2 OBJECT-TYPE
+	SYNTAX		INTEGER
+	MAX-ACCESS	read-write
+	STATUS		current
+	DESCRIPTION	
+		"This resets cabinet faults."
+	DEFVAL { 0 }
+	::= { parallaxReadWriteB2 6 }
+
+InterlockA2 OBJECT-TYPE
+	SYNTAX		OCTET STRING (SIZE(8))
+	MAX-ACCESS	read-write
+	STATUS		current
+	DESCRIPTION	
+		"Open = TX off, Close = Enable XTMR."
+	DEFVAL { 0 }
+	::= { parallaxReadWriteA2 7 }
+
+InterlockB2 OBJECT-TYPE
+	SYNTAX		OCTET STRING (SIZE(8))
+	MAX-ACCESS	read-write
+	STATUS		current
+	DESCRIPTION	
+		"Open = TX off, Close = Enable XTMR."
+	DEFVAL { 0 }
+	::= { parallaxReadWriteB2 7 }
+
+desiredForwardPowerA2 OBJECT-TYPE
+	SYNTAX		OCTET STRING (SIZE(8))
+	MAX-ACCESS	read-write
+	STATUS		current
+	DESCRIPTION	
+		"Set the desired value for Forward Power."
+	DEFVAL { 0 }
+	::= { parallaxReadWriteA2 8 }
+
+desiredForwardPowerB2 OBJECT-TYPE
+	SYNTAX		OCTET STRING (SIZE(8))
+	MAX-ACCESS	read-write
+	STATUS		current
+	DESCRIPTION	
+		"Set the desired value for Forward Power."
+	DEFVAL { 0 }
+	::= { parallaxReadWriteB2 8 }
+
+licensedTPOA2 OBJECT-TYPE
+	SYNTAX		OCTET STRING (SIZE(8))
+	MAX-ACCESS	read-write
+	STATUS		current
+	DESCRIPTION	
+		"Set the Value for License TPO."
+	DEFVAL { 0 }
+	::= { parallaxReadWriteA2 9 }
+
+licensedTPOB2 OBJECT-TYPE
+	SYNTAX		OCTET STRING (SIZE(8))
+	MAX-ACCESS	read-write
+	STATUS		current
+	DESCRIPTION	
+		"Set the Value for License TPO."
+	DEFVAL { 0 }
+	::= { parallaxReadWriteB2 9 }
+
+--
+-- Read only objects Cabinet 2
+--
+
+forwardPowerA2 OBJECT-TYPE
+	SYNTAX		OCTET STRING (SIZE(8))
+	MAX-ACCESS 	read-write
+	STATUS		current
+	DESCRIPTION
+		""The current forward power output of the Parallax transmitter measured in watts."
+	DEFVAL { 0 }
+	::= { parallaxReadOnlyA2 1 }
+
+forwardPowerB2 OBJECT-TYPE
+	SYNTAX		INTEGER
+	MAX-ACCESS 	read-write
+	STATUS		current
+	DESCRIPTION
+		"The current forward power output of the Parallax transmitter measured in watts."
+	DEFVAL { 0 }
+	::= { parallaxReadOnlyB2 1 }
+
+forwardPowerPercentA2 OBJECT-TYPE
+	SYNTAX		OCTET STRING (SIZE(8))
+	MAX-ACCESS 	read-only
+	STATUS		current
+	DESCRIPTION
+		"The current forward power output of the Parallax transmitter measured as a percentage of the transmitter's total power output allotted by the FCC."
+	DEFVAL { 0 }
+	::= { parallaxReadOnlyA2 2 }
+
+forwardPowerPercentB2 OBJECT-TYPE
+	SYNTAX		OCTET STRING (SIZE(8))
+	MAX-ACCESS 	read-only
+	STATUS		current
+	DESCRIPTION
+		"The current forward power output of the Parallax transmitter measured as a percentage of the transmitter's total power output allotted by the FCC."
+	DEFVAL { 0 }
+	::= { parallaxReadOnlyB2 2 }
+
+reflectedPowerA2 OBJECT-TYPE
+	SYNTAX		OCTET STRING (SIZE(8))
+	MAX-ACCESS	read-only
+	STATUS		current
+	DESCRIPTION
+		"The current reflected power of the Parallax transmitter measured as a percentage."
+	DEFVAL { 0 }
+	::= { parallaxReadOnlyA2 3 }
+
+reflectedPowerB2 OBJECT-TYPE
+	SYNTAX		OCTET STRING (SIZE(8))
+	MAX-ACCESS	read-only
+	STATUS		current
+	DESCRIPTION
+		"The current reflected power of the Parallax transmitter measured as a percentage."
+	DEFVAL { 0 }
+	::= { parallaxReadOnlyB2 3 }
+
+upperShoulderA2 OBJECT-TYPE
+	SYNTAX		OCTET STRING (SIZE(8))
+	MAX-ACCESS	read-only
+	STATUS		current
+	DESCRIPTION	
+		"The upper shoulder value, meausered from the exciter."
+	DEFVAL { 0 }
+	::= { parallaxReadOnlyA2 4 }
+
+upperShoulderB2 OBJECT-TYPE
+	SYNTAX		OCTET STRING (SIZE(8))
+	MAX-ACCESS	read-only
+	STATUS		current
+	DESCRIPTION	
+		"The upper shoulder value, meausered from the exciter."
+	DEFVAL { 0 }
+	::= { parallaxReadOnlyB2 4 }
+
+lowerShoulderA2 OBJECT-TYPE
+	SYNTAX		OCTET STRING (SIZE(8))
+	MAX-ACCESS	read-only
+	STATUS		current
+	DESCRIPTION	
+		"The lower shoulder value, meausered from the exciter."
+	DEFVAL { 0 }
+	::= { parallaxReadOnlyA2 5 }
+
+lowerShoulderB2 OBJECT-TYPE
+	SYNTAX		OCTET STRING (SIZE(8))
+	MAX-ACCESS	read-only
+	STATUS		current
+	DESCRIPTION	
+		"The lower shoulder value, meausered from the exciter."
+	DEFVAL { 0 }
+	::= { parallaxReadOnlyB2 5 }
+
+VSWRstatusA2 OBJECT-TYPE
+	SYNTAX		OCTET STRING (SIZE(8))
+	MAX-ACCESS	read-only
+	STATUS		current
+	DESCRIPTION	
+		"High reflected power."
+	DEFVAL { 0 }
+	::= { parallaxReadOnlyA2 6 }
+
+VSWRstatusB2 OBJECT-TYPE
+	SYNTAX		OCTET STRING (SIZE(8))
+	MAX-ACCESS	read-only
+	STATUS		current
+	DESCRIPTION	
+		"High reflected power."
+	DEFVAL { 0 }
+	::= { parallaxReadOnlyB2 6 }
+
+--
+-- Nodes for cabinet 2
+--
+
+PowerSupplyNode2 OBJECT-TYPE
+	SYNTAX		OCTET STRING (SIZE(8))
+	MAX-ACCESS 	read-only
+	STATUS		current
+	DESCRIPTION
+		"Power Supply Node Data."
+	DEFVAL { 1 }
+	::= { parallaxCabinetNodes2 1 }
+
+RFSwitchNodeA2 OBJECT-TYPE
+	SYNTAX		OCTET STRING (SIZE(8))
+	MAX-ACCESS 	read-only
+	STATUS		current
+	DESCRIPTION
+		"RF Switch Node Data, transmitter A."
+	DEFVAL { 1 }
+	::= { parallaxCabinetNodes2 2 }
+
+RFSwitchNodeB2 OBJECT-TYPE
+	SYNTAX		OCTET STRING (SIZE(8))
+	MAX-ACCESS 	read-only
+	STATUS		current
+	DESCRIPTION
+		"RF Switch Node Data, transmitter B."
+	DEFVAL { 1 }
+	::= { parallaxCabinetNodes2 3 }
+
+InternalTemperatureNode2 OBJECT-TYPE
+	SYNTAX		OCTET STRING (SIZE(8))
+	MAX-ACCESS 	read-only
+	STATUS		current
+	DESCRIPTION
+		"Internal Temperature Node Data."
+	DEFVAL { 1 }
+	::= { parallaxCabinetNodes2 4 }
+
+ExternalNode2 OBJECT-TYPE
+	SYNTAX		OCTET STRING (SIZE(8))
+	MAX-ACCESS 	read-only
+	STATUS		current
+	DESCRIPTION
+		"External Node Data."
+	DEFVAL { 1 }
+	::= { parallaxCabinetNodes2 5 }
+
+1RFLoadNode2 OBJECT-TYPE
+	SYNTAX		OCTET STRING (SIZE(8))
+	MAX-ACCESS 	read-only
+	STATUS		current
+	DESCRIPTION
+		"RF Load Node #1 Data."
+	DEFVAL { 1 }
+	::= { parallaxCabinetNodes2 6 }
+
+2RFLoadNode2 OBJECT-TYPE
+	SYNTAX		OCTET STRING (SIZE(8))
+	MAX-ACCESS 	read-only
+	STATUS		current
+	DESCRIPTION
+		"RF Load Node #2 Data."
+	DEFVAL { 1 }
+	::= { parallaxCabinetNodes2 7 }
+
+3RFLoadNode2 OBJECT-TYPE
+	SYNTAX		OCTET STRING (SIZE(8))
+	MAX-ACCESS 	read-only
+	STATUS		current
+	DESCRIPTION
+		"RF Load Node #3 Data."
+	DEFVAL { 1 }
+	::= { parallaxCabinetNodes2 8 }
+
+4RFLoadNode2 OBJECT-TYPE
+	SYNTAX		OCTET STRING (SIZE(8))
+	MAX-ACCESS 	read-only
+	STATUS		current
+	DESCRIPTION
+		"RF Load Node #4 Data."
+	DEFVAL { 1 }
+	::= { parallaxCabinetNodes2 9 }
+
+RFPhaseNode2 OBJECT-TYPE
+	SYNTAX		OCTET STRING (SIZE(8))
+	MAX-ACCESS 	read-only
+	STATUS		current
+	DESCRIPTION
+		"RF Phase Node Data."
+	DEFVAL { 1 }
+	::= { parallaxCabinetNodes2 10 }
+
+--
+-- Parallax Faults for Cabinet 2
+--
+
+AmplifierFault2 OBJECT-TYPE
+	SYNTAX		INTEGER
+	MAX-ACCESS	read-write
+	STATUS		current
+	DESCRIPTION
+		"Parallax Amplifier fault triggered."
+	DEFVAL { 0 }
+	::= { parallaxCabinetFaults2 1 }
+
+AGCSwitchFault2 OBJECT-TYPE
+	SYNTAX		INTEGER
+	MAX-ACCESS	read-write
+	STATUS		current
+	DESCRIPTION
+		"Parallax AGC Switch fault triggered."
+	DEFVAL { 0 }
+	::= { parallaxCabinetFaults2 2 }
+
+CriticalFault2 OBJECT-TYPE
+	SYNTAX		INTEGER
+	MAX-ACCESS	read-write
+	STATUS		current
+	DESCRIPTION
+		"Parallax critical fault triggered."
+	DEFVAL { 0 }
+	::= { parallaxCabinetFaults2 3 }
+
+ExciterFault2 OBJECT-TYPE
+	SYNTAX		INTEGER
+	MAX-ACCESS	read-write
+	STATUS		current
+	DESCRIPTION
+		"Parallax exciter fault triggered."
+	DEFVAL { 0 }
+	::= { parallaxCabinetFaults2 4 }
+
+PreampFault2 OBJECT-TYPE
+	SYNTAX		INTEGER
+	MAX-ACCESS	read-write
+	STATUS		current
+	DESCRIPTION
+		"Parallax preamp fault triggered."
+	DEFVAL { 0 }
+	::= { parallaxCabinetFaults2 5 }
+
+CoolingFault2 OBJECT-TYPE
+	SYNTAX		INTEGER
+	MAX-ACCESS	read-write
+	STATUS		current
+	DESCRIPTION
+		"Parallax cooling fault triggered."
+	DEFVAL { 0 }
+	::= { parallaxCabinetFaults2 6 }
+
+OutputFault2 OBJECT-TYPE
+	SYNTAX		INTEGER
+	MAX-ACCESS	read-write
+	STATUS		current
+	DESCRIPTION
+		"Parallax output fault triggered."
+	DEFVAL { 0 }
+	::= { parallaxCabinetFaults2 7 }
+
+PowerSupplyFault2 OBJECT-TYPE
+	SYNTAX		INTEGER
+	MAX-ACCESS	read-write
+	STATUS		current
+	DESCRIPTION
+		"Parallax power supply fault triggered."
+	DEFVAL { 0 }
+	::= { parallaxCabinetFaults2 8 }
+
+--
+-- Other Varaibles for Cabinet 2
+--
+
+activeCooling2 OBJECT-TYPE
+	SYNTAX		INTEGER
+	MAX-ACCESS 	read-write
+	STATUS		current
+	DESCRIPTION
+		"Reflects the cooling pump that is currently active."
+	DEFVAL { 1 }
+	::= { parallaxVariables2 5 }
+
+coolantLevel2 OBJECT-TYPE
+	SYNTAX		INTEGER
+	MAX-ACCESS	read-only
+	STATUS		current
+	DESCRIPTION
+		"Indicates the state of the coolant level in the tank. Can either be normal, at a warning level, or fault."
+	DEFVAL { 0 }
+	::= { parallaxVariables2 6 }
+
+coolantTankTemp2 OBJECT-TYPE
+	SYNTAX		OCTET STRING (SIZE(8))
+	MAX-ACCESS	read-only
+	STATUS		current
+	DESCRIPTION
+		"The temperature of the coolant tank, measured in Celcius."
+	DEFVAL { 0 }
+	::= { parallaxVariables2 7 }
+
+heatExchangerFlow2 OBJECT-TYPE
+	SYNTAX		OCTET STRING (SIZE(8))
+	MAX-ACCESS	read-only
+	STATUS		current
+	DESCRIPTION
+		"The current flow rate of the heat exchanger, measured in gallons per minute."
+	DEFVAL { 0 }
+	::= { parallaxVariables2 8 }
+
+inletTemperature2 OBJECT-TYPE
+	SYNTAX		OCTET STRING (SIZE(8))
+	MAX-ACCESS	read-only
+	STATUS		current
+	DESCRIPTION
+		"The temperature of the coolant measured at the inlet, measured in Celcius."
+	DEFVAL { 0 }
+	::= { parallaxVariables2 9 }
+
+outletTemperature2 OBJECT-TYPE
+	SYNTAX		OCTET STRING (SIZE(8))
+	MAX-ACCESS	read-only
+	STATUS		current
+	DESCRIPTION
+		"The temperature of the coolant measured at the outlet, measured in Celcius."
+	DEFVAL { 0 }
+	::= { parallaxVariables2 10 }
+
+cabinetAirTemperature2 OBJECT-TYPE
+	SYNTAX		OCTET STRING (SIZE(8))
+	MAX-ACCESS	read-only
+	STATUS		current
+	DESCRIPTION
+		"The current air temperature inside the Parallax transmitter cabinet."
+	DEFVAL { 0 }
+	::= { parallaxVariables2 11 }
+
+powerSupply1Voltage2 OBJECT-TYPE
+	SYNTAX		OCTET STRING (SIZE(8))
+	MAX-ACCESS	read-only
+	STATUS		current
+	DESCRIPTION	
+		"The voltage of power supply 1"
+	DEFVAL { 0 }
+	::= { parallaxVariables2 12 }
+
+powerSupply2Voltage2 OBJECT-TYPE
+	SYNTAX		OCTET STRING (SIZE(8))
+	MAX-ACCESS	read-only
+	STATUS		current
+	DESCRIPTION	
+		"The voltage of power supply 2"
+	DEFVAL { 0 }
+	::= { parallaxVariables2 13 }
+
+--
+-- Read/Write objects Cabinet 3
+--
+
+txStateA3 OBJECT-TYPE
+	SYNTAX		OCTET STRING (SIZE(8))
+	MAX-ACCESS	read-write
+	STATUS		current
+	DESCRIPTION
+		"The current state of RF transmission from the Parallax cabinet.
+		 0 indicates that the cabinet is currently not transmitting.
+		 1 indicates that the cabinet is in TX ON mode."
+	DEFVAL { 0 }
+	::= { parallaxReadWriteA3 1 }
+
+txStateB3 OBJECT-TYPE
+	SYNTAX		OCTET STRING (SIZE(8))
+	MAX-ACCESS	read-write
+	STATUS		current
+	DESCRIPTION
+		"The current state of RF transmission from the Parallax cabinet.
+		 0 indicates that the cabinet is currently not transmitting.
+		 1 indicates that the cabinet is in TX ON mode."
+	DEFVAL { 0 }
+	::= { parallaxReadWriteB3 1 }
+
+controlStateA3 OBJECT-TYPE
+	SYNTAX		INTEGER
+	MAX-ACCESS	read-write
+	STATUS		current
+	DESCRIPTION
+		"This state reflects whether the Parallax transmitter is operating in local or remote mode."	
+	DEFVAL { 0 }
+	::= { parallaxReadWriteA3 2 }
+
+controlStateB3 OBJECT-TYPE
+	SYNTAX		INTEGER
+	MAX-ACCESS	read-write
+	STATUS		current
+	DESCRIPTION
+		"This state reflects whether the Parallax transmitter is operating in local or remote mode."	
+	DEFVAL { 0 }
+	::= { parallaxReadWriteB3 2 }
+
+activeExciterA3 OBJECT-TYPE
+	SYNTAX		INTEGER
+	MAX-ACCESS	read-write
+	STATUS		current
+	DESCRIPTION
+		"Reflects the exciter that is currently in use."
+	DEFVAL { 1 }
+	::= { parallaxReadWriteA3 3 }
+
+activeExciterB3 OBJECT-TYPE
+	SYNTAX		INTEGER
+	MAX-ACCESS	read-write
+	STATUS		current
+	DESCRIPTION
+		"Reflects the exciter that is currently in use."
+	DEFVAL { 1 }
+	::= { parallaxReadWriteB3 3 }
+
+activePreampA3 OBJECT-TYPE
+	SYNTAX		INTEGER
+	MAX-ACCESS	read-write
+	STATUS		current
+	DESCRIPTION
+		"Reflects the preamp that is currently in use."
+	DEFVAL { 1 }
+	::= { parallaxReadWriteA3 4 }
+
+activePreampB3 OBJECT-TYPE
+	SYNTAX		INTEGER
+	MAX-ACCESS	read-write
+	STATUS		current
+	DESCRIPTION
+		"Reflects the preamp that is currently in use."
+	DEFVAL { 1 }
+	::= { parallaxReadWriteB3 4 }
+
+activeOutputA3 OBJECT-TYPE
+	SYNTAX		INTEGER
+	MAX-ACCESS	read-write
+	STATUS		current
+	DESCRIPTION
+		"Reflects the output that is currently active.
+		 0 indicates that the active output is the station antenna.
+		 1 indicates that the active output is the RF load."
+	DEFVAL { 1 }
+	::= { parallaxReadWriteA3 5 }
+
+activeOutputB3 OBJECT-TYPE
+	SYNTAX		INTEGER
+	MAX-ACCESS	read-write
+	STATUS		current
+	DESCRIPTION
+		"Reflects the output that is currently active.
+		 0 indicates that the active output is the station antenna.
+		 1 indicates that the active output is the RF load."
+	DEFVAL { 1 }
+	::= { parallaxReadWriteB3 5 }
+
+resetsFaultsA3 OBJECT-TYPE
+	SYNTAX		INTEGER
+	MAX-ACCESS	read-write
+	STATUS		current
+	DESCRIPTION	
+		"This resets cabinet faults."
+	DEFVAL { 0 }
+	::= { parallaxReadWriteA3 6 }
+
+resetsFaultsB3 OBJECT-TYPE
+	SYNTAX		INTEGER
+	MAX-ACCESS	read-write
+	STATUS		current
+	DESCRIPTION	
+		"This resets cabinet faults."
+	DEFVAL { 0 }
+	::= { parallaxReadWriteB3 6 }
+
+InterlockA3 OBJECT-TYPE
+	SYNTAX		OCTET STRING (SIZE(8))
+	MAX-ACCESS	read-write
+	STATUS		current
+	DESCRIPTION	
+		"Open = TX off, Close = Enable XTMR."
+	DEFVAL { 0 }
+	::= { parallaxReadWriteA3 7 }
+
+InterlockB3 OBJECT-TYPE
+	SYNTAX		OCTET STRING (SIZE(8))
+	MAX-ACCESS	read-write
+	STATUS		current
+	DESCRIPTION	
+		"Open = TX off, Close = Enable XTMR."
+	DEFVAL { 0 }
+	::= { parallaxReadWriteB3 7 }
+
+desiredForwardPowerA3 OBJECT-TYPE
+	SYNTAX		OCTET STRING (SIZE(8))
+	MAX-ACCESS	read-write
+	STATUS		current
+	DESCRIPTION	
+		"Set the desired value for Forward Power."
+	DEFVAL { 0 }
+	::= { parallaxReadWriteA3 8 }
+
+desiredForwardPowerB3 OBJECT-TYPE
+	SYNTAX		OCTET STRING (SIZE(8))
+	MAX-ACCESS	read-write
+	STATUS		current
+	DESCRIPTION	
+		"Set the desired value for Forward Power."
+	DEFVAL { 0 }
+	::= { parallaxReadWriteB3 8 }
+
+licensedTPOA3 OBJECT-TYPE
+	SYNTAX		OCTET STRING (SIZE(8))
+	MAX-ACCESS	read-write
+	STATUS		current
+	DESCRIPTION	
+		"Set the Value for License TPO."
+	DEFVAL { 0 }
+	::= { parallaxReadWriteA3 9 }
+
+licensedTPOB3 OBJECT-TYPE
+	SYNTAX		OCTET STRING (SIZE(8))
+	MAX-ACCESS	read-write
+	STATUS		current
+	DESCRIPTION	
+		"Set the Value for License TPO."
+	DEFVAL { 0 }
+	::= { parallaxReadWriteB3 9 }
+
+--
+-- Read only objects Cabinet 3
+--
+
+forwardPowerA3 OBJECT-TYPE
+	SYNTAX		OCTET STRING (SIZE(8))
+	MAX-ACCESS 	read-write
+	STATUS		current
+	DESCRIPTION
+		""The current forward power output of the Parallax transmitter measured in watts."
+	DEFVAL { 0 }
+	::= { parallaxReadOnlyA3 1 }
+
+forwardPowerB3 OBJECT-TYPE
+	SYNTAX		INTEGER
+	MAX-ACCESS 	read-write
+	STATUS		current
+	DESCRIPTION
+		"The current forward power output of the Parallax transmitter measured in watts."
+	DEFVAL { 0 }
+	::= { parallaxReadOnlyB3 1 }
+
+forwardPowerPercentA3 OBJECT-TYPE
+	SYNTAX		OCTET STRING (SIZE(8))
+	MAX-ACCESS 	read-only
+	STATUS		current
+	DESCRIPTION
+		"The current forward power output of the Parallax transmitter measured as a percentage of the transmitter's total power output allotted by the FCC."
+	DEFVAL { 0 }
+	::= { parallaxReadOnlyA3 2 }
+
+forwardPowerPercentB3 OBJECT-TYPE
+	SYNTAX		OCTET STRING (SIZE(8))
+	MAX-ACCESS 	read-only
+	STATUS		current
+	DESCRIPTION
+		"The current forward power output of the Parallax transmitter measured as a percentage of the transmitter's total power output allotted by the FCC."
+	DEFVAL { 0 }
+	::= { parallaxReadOnlyB3 2 }
+
+reflectedPowerA3 OBJECT-TYPE
+	SYNTAX		OCTET STRING (SIZE(8))
+	MAX-ACCESS	read-only
+	STATUS		current
+	DESCRIPTION
+		"The current reflected power of the Parallax transmitter measured as a percentage."
+	DEFVAL { 0 }
+	::= { parallaxReadOnlyA3 3 }
+
+reflectedPowerB3 OBJECT-TYPE
+	SYNTAX		OCTET STRING (SIZE(8))
+	MAX-ACCESS	read-only
+	STATUS		current
+	DESCRIPTION
+		"The current reflected power of the Parallax transmitter measured as a percentage."
+	DEFVAL { 0 }
+	::= { parallaxReadOnlyB3 3 }
+
+upperShoulderA3 OBJECT-TYPE
+	SYNTAX		OCTET STRING (SIZE(8))
+	MAX-ACCESS	read-only
+	STATUS		current
+	DESCRIPTION	
+		"The upper shoulder value, meausered from the exciter."
+	DEFVAL { 0 }
+	::= { parallaxReadOnlyA3 4 }
+
+upperShoulderB3 OBJECT-TYPE
+	SYNTAX		OCTET STRING (SIZE(8))
+	MAX-ACCESS	read-only
+	STATUS		current
+	DESCRIPTION	
+		"The upper shoulder value, meausered from the exciter."
+	DEFVAL { 0 }
+	::= { parallaxReadOnlyB3 4 }
+
+lowerShoulderA3 OBJECT-TYPE
+	SYNTAX		OCTET STRING (SIZE(8))
+	MAX-ACCESS	read-only
+	STATUS		current
+	DESCRIPTION	
+		"The lower shoulder value, meausered from the exciter."
+	DEFVAL { 0 }
+	::= { parallaxReadOnlyA3 5 }
+
+lowerShoulderB3 OBJECT-TYPE
+	SYNTAX		OCTET STRING (SIZE(8))
+	MAX-ACCESS	read-only
+	STATUS		current
+	DESCRIPTION	
+		"The lower shoulder value, meausered from the exciter."
+	DEFVAL { 0 }
+	::= { parallaxReadOnlyB3 5 }
+
+VSWRstatusA3 OBJECT-TYPE
+	SYNTAX		OCTET STRING (SIZE(8))
+	MAX-ACCESS	read-only
+	STATUS		current
+	DESCRIPTION	
+		"High reflected power."
+	DEFVAL { 0 }
+	::= { parallaxReadOnlyA3 6 }
+
+VSWRstatusB3 OBJECT-TYPE
+	SYNTAX		OCTET STRING (SIZE(8))
+	MAX-ACCESS	read-only
+	STATUS		current
+	DESCRIPTION	
+		"High reflected power."
+	DEFVAL { 0 }
+	::= { parallaxReadOnlyB3 6 }
+
+--
+-- Nodes for cabinet 3
+--
+
+PowerSupplyNode3 OBJECT-TYPE
+	SYNTAX		OCTET STRING (SIZE(8))
+	MAX-ACCESS 	read-only
+	STATUS		current
+	DESCRIPTION
+		"Power Supply Node Data."
+	DEFVAL { 1 }
+	::= { parallaxCabinetNodes3 1 }
+
+RFSwitchNodeA3 OBJECT-TYPE
+	SYNTAX		OCTET STRING (SIZE(8))
+	MAX-ACCESS 	read-only
+	STATUS		current
+	DESCRIPTION
+		"RF Switch Node Data, transmitter A."
+	DEFVAL { 1 }
+	::= { parallaxCabinetNodes3 2 }
+
+RFSwitchNodeB3 OBJECT-TYPE
+	SYNTAX		OCTET STRING (SIZE(8))
+	MAX-ACCESS 	read-only
+	STATUS		current
+	DESCRIPTION
+		"RF Switch Node Data, transmitter B."
+	DEFVAL { 1 }
+	::= { parallaxCabinetNodes3 3 }
+
+InternalTemperatureNode3 OBJECT-TYPE
+	SYNTAX		OCTET STRING (SIZE(8))
+	MAX-ACCESS 	read-only
+	STATUS		current
+	DESCRIPTION
+		"Internal Temperature Node Data."
+	DEFVAL { 1 }
+	::= { parallaxCabinetNodes3 4 }
+
+ExternalNode3 OBJECT-TYPE
+	SYNTAX		OCTET STRING (SIZE(8))
+	MAX-ACCESS 	read-only
+	STATUS		current
+	DESCRIPTION
+		"External Node Data."
+	DEFVAL { 1 }
+	::= { parallaxCabinetNodes3 5 }
+
+1RFLoadNode3 OBJECT-TYPE
+	SYNTAX		OCTET STRING (SIZE(8))
+	MAX-ACCESS 	read-only
+	STATUS		current
+	DESCRIPTION
+		"RF Load Node #1 Data."
+	DEFVAL { 1 }
+	::= { parallaxCabinetNodes3 6 }
+
+2RFLoadNode3 OBJECT-TYPE
+	SYNTAX		OCTET STRING (SIZE(8))
+	MAX-ACCESS 	read-only
+	STATUS		current
+	DESCRIPTION
+		"RF Load Node #2 Data."
+	DEFVAL { 1 }
+	::= { parallaxCabinetNodes3 7 }
+
+3RFLoadNode3 OBJECT-TYPE
+	SYNTAX		OCTET STRING (SIZE(8))
+	MAX-ACCESS 	read-only
+	STATUS		current
+	DESCRIPTION
+		"RF Load Node #3 Data."
+	DEFVAL { 1 }
+	::= { parallaxCabinetNodes3 8 }
+
+4RFLoadNode3 OBJECT-TYPE
+	SYNTAX		OCTET STRING (SIZE(8))
+	MAX-ACCESS 	read-only
+	STATUS		current
+	DESCRIPTION
+		"RF Load Node #4 Data."
+	DEFVAL { 1 }
+	::= { parallaxCabinetNodes3 9 }
+
+RFPhaseNode3 OBJECT-TYPE
+	SYNTAX		OCTET STRING (SIZE(8))
+	MAX-ACCESS 	read-only
+	STATUS		current
+	DESCRIPTION
+		"RF Phase Node Data."
+	DEFVAL { 1 }
+	::= { parallaxCabinetNodes3 10 }
+
+--
+-- Parallax Faults for Cabinet 3
+--
+
+AmplifierFault3 OBJECT-TYPE
+	SYNTAX		INTEGER
+	MAX-ACCESS	read-write
+	STATUS		current
+	DESCRIPTION
+		"Parallax Amplifier fault triggered."
+	DEFVAL { 0 }
+	::= { parallaxCabinetFaults3 1 }
+
+AGCSwitchFault3 OBJECT-TYPE
+	SYNTAX		INTEGER
+	MAX-ACCESS	read-write
+	STATUS		current
+	DESCRIPTION
+		"Parallax AGC Switch fault triggered."
+	DEFVAL { 0 }
+	::= { parallaxCabinetFaults3 2 }
+
+CriticalFault3 OBJECT-TYPE
+	SYNTAX		INTEGER
+	MAX-ACCESS	read-write
+	STATUS		current
+	DESCRIPTION
+		"Parallax critical fault triggered."
+	DEFVAL { 0 }
+	::= { parallaxCabinetFaults3 3 }
+
+ExciterFault3 OBJECT-TYPE
+	SYNTAX		INTEGER
+	MAX-ACCESS	read-write
+	STATUS		current
+	DESCRIPTION
+		"Parallax exciter fault triggered."
+	DEFVAL { 0 }
+	::= { parallaxCabinetFaults3 4 }
+
+PreampFault3 OBJECT-TYPE
+	SYNTAX		INTEGER
+	MAX-ACCESS	read-write
+	STATUS		current
+	DESCRIPTION
+		"Parallax preamp fault triggered."
+	DEFVAL { 0 }
+	::= { parallaxCabinetFaults3 5 }
+
+CoolingFault3 OBJECT-TYPE
+	SYNTAX		INTEGER
+	MAX-ACCESS	read-write
+	STATUS		current
+	DESCRIPTION
+		"Parallax cooling fault triggered."
+	DEFVAL { 0 }
+	::= { parallaxCabinetFaults3 6 }
+
+OutputFault3 OBJECT-TYPE
+	SYNTAX		INTEGER
+	MAX-ACCESS	read-write
+	STATUS		current
+	DESCRIPTION
+		"Parallax output fault triggered."
+	DEFVAL { 0 }
+	::= { parallaxCabinetFaults3 7 }
+
+PowerSupplyFault3 OBJECT-TYPE
+	SYNTAX		INTEGER
+	MAX-ACCESS	read-write
+	STATUS		current
+	DESCRIPTION
+		"Parallax power supply fault triggered."
+	DEFVAL { 0 }
+	::= { parallaxCabinetFaults3 8 }
+
+--
+-- Other Varaibles for Cabinet 3
+--
+
+activeCooling3 OBJECT-TYPE
+	SYNTAX		INTEGER
+	MAX-ACCESS 	read-write
+	STATUS		current
+	DESCRIPTION
+		"Reflects the cooling pump that is currently active."
+	DEFVAL { 1 }
+	::= { parallaxVariables3 5 }
+
+coolantLevel3 OBJECT-TYPE
+	SYNTAX		INTEGER
+	MAX-ACCESS	read-only
+	STATUS		current
+	DESCRIPTION
+		"Indicates the state of the coolant level in the tank. Can either be normal, at a warning level, or fault."
+	DEFVAL { 0 }
+	::= { parallaxVariables3 6 }
+
+coolantTankTemp3 OBJECT-TYPE
+	SYNTAX		OCTET STRING (SIZE(8))
+	MAX-ACCESS	read-only
+	STATUS		current
+	DESCRIPTION
+		"The temperature of the coolant tank, measured in Celcius."
+	DEFVAL { 0 }
+	::= { parallaxVariables3 7 }
+
+heatExchangerFlow3 OBJECT-TYPE
+	SYNTAX		OCTET STRING (SIZE(8))
+	MAX-ACCESS	read-only
+	STATUS		current
+	DESCRIPTION
+		"The current flow rate of the heat exchanger, measured in gallons per minute."
+	DEFVAL { 0 }
+	::= { parallaxVariables3 8 }
+
+inletTemperature3 OBJECT-TYPE
+	SYNTAX		OCTET STRING (SIZE(8))
+	MAX-ACCESS	read-only
+	STATUS		current
+	DESCRIPTION
+		"The temperature of the coolant measured at the inlet, measured in Celcius."
+	DEFVAL { 0 }
+	::= { parallaxVariables3 9 }
+
+outletTemperature3 OBJECT-TYPE
+	SYNTAX		OCTET STRING (SIZE(8))
+	MAX-ACCESS	read-only
+	STATUS		current
+	DESCRIPTION
+		"The temperature of the coolant measured at the outlet, measured in Celcius."
+	DEFVAL { 0 }
+	::= { parallaxVariables3 10 }
+
+cabinetAirTemperature3 OBJECT-TYPE
+	SYNTAX		OCTET STRING (SIZE(8))
+	MAX-ACCESS	read-only
+	STATUS		current
+	DESCRIPTION
+		"The current air temperature inside the Parallax transmitter cabinet."
+	DEFVAL { 0 }
+	::= { parallaxVariables3 11 }
+
+powerSupply1Voltage3 OBJECT-TYPE
+	SYNTAX		OCTET STRING (SIZE(8))
+	MAX-ACCESS	read-only
+	STATUS		current
+	DESCRIPTION	
+		"The voltage of power supply 1"
+	DEFVAL { 0 }
+	::= { parallaxVariables3 12 }
+
+powerSupply2Voltage3 OBJECT-TYPE
+	SYNTAX		OCTET STRING (SIZE(8))
+	MAX-ACCESS	read-only
+	STATUS		current
+	DESCRIPTION	
+		"The voltage of power supply 2"
+	DEFVAL { 0 }
+	::= { parallaxVariables3 13 }
+
+--
+-- Read/Write objects Cabinet 4
+--
+
+txStateA4 OBJECT-TYPE
+	SYNTAX		OCTET STRING (SIZE(8))
+	MAX-ACCESS	read-write
+	STATUS		current
+	DESCRIPTION
+		"The current state of RF transmission from the Parallax cabinet.
+		 0 indicates that the cabinet is currently not transmitting.
+		 1 indicates that the cabinet is in TX ON mode."
+	DEFVAL { 0 }
+	::= { parallaxReadWriteA4 1 }
+
+txStateB4 OBJECT-TYPE
+	SYNTAX		OCTET STRING (SIZE(8))
+	MAX-ACCESS	read-write
+	STATUS		current
+	DESCRIPTION
+		"The current state of RF transmission from the Parallax cabinet.
+		 0 indicates that the cabinet is currently not transmitting.
+		 1 indicates that the cabinet is in TX ON mode."
+	DEFVAL { 0 }
+	::= { parallaxReadWriteB4 1 }
+
+controlStateA4 OBJECT-TYPE
+	SYNTAX		INTEGER
+	MAX-ACCESS	read-write
+	STATUS		current
+	DESCRIPTION
+		"This state reflects whether the Parallax transmitter is operating in local or remote mode."	
+	DEFVAL { 0 }
+	::= { parallaxReadWriteA4 2 }
+
+controlStateB4 OBJECT-TYPE
+	SYNTAX		INTEGER
+	MAX-ACCESS	read-write
+	STATUS		current
+	DESCRIPTION
+		"This state reflects whether the Parallax transmitter is operating in local or remote mode."	
+	DEFVAL { 0 }
+	::= { parallaxReadWriteB4 2 }
+
+activeExciterA4 OBJECT-TYPE
+	SYNTAX		INTEGER
+	MAX-ACCESS	read-write
+	STATUS		current
+	DESCRIPTION
+		"Reflects the exciter that is currently in use."
+	DEFVAL { 1 }
+	::= { parallaxReadWriteA4 3 }
+
+activeExciterB4 OBJECT-TYPE
+	SYNTAX		INTEGER
+	MAX-ACCESS	read-write
+	STATUS		current
+	DESCRIPTION
+		"Reflects the exciter that is currently in use."
+	DEFVAL { 1 }
+	::= { parallaxReadWriteB4 3 }
+
+activePreampA4 OBJECT-TYPE
+	SYNTAX		INTEGER
+	MAX-ACCESS	read-write
+	STATUS		current
+	DESCRIPTION
+		"Reflects the preamp that is currently in use."
+	DEFVAL { 1 }
+	::= { parallaxReadWriteA4 4 }
+
+activePreampB4 OBJECT-TYPE
+	SYNTAX		INTEGER
+	MAX-ACCESS	read-write
+	STATUS		current
+	DESCRIPTION
+		"Reflects the preamp that is currently in use."
+	DEFVAL { 1 }
+	::= { parallaxReadWriteB4 4 }
+
+activeOutputA4 OBJECT-TYPE
+	SYNTAX		INTEGER
+	MAX-ACCESS	read-write
+	STATUS		current
+	DESCRIPTION
+		"Reflects the output that is currently active.
+		 0 indicates that the active output is the station antenna.
+		 1 indicates that the active output is the RF load."
+	DEFVAL { 1 }
+	::= { parallaxReadWriteA4 5 }
+
+activeOutputB4 OBJECT-TYPE
+	SYNTAX		INTEGER
+	MAX-ACCESS	read-write
+	STATUS		current
+	DESCRIPTION
+		"Reflects the output that is currently active.
+		 0 indicates that the active output is the station antenna.
+		 1 indicates that the active output is the RF load."
+	DEFVAL { 1 }
+	::= { parallaxReadWriteB4 5 }
+
+resetsFaultsA4 OBJECT-TYPE
+	SYNTAX		INTEGER
+	MAX-ACCESS	read-write
+	STATUS		current
+	DESCRIPTION	
+		"This resets cabinet faults."
+	DEFVAL { 0 }
+	::= { parallaxReadWriteA4 6 }
+
+resetsFaultsB4 OBJECT-TYPE
+	SYNTAX		INTEGER
+	MAX-ACCESS	read-write
+	STATUS		current
+	DESCRIPTION	
+		"This resets cabinet faults."
+	DEFVAL { 0 }
+	::= { parallaxReadWriteB4 6 }
+
+InterlockA4 OBJECT-TYPE
+	SYNTAX		OCTET STRING (SIZE(8))
+	MAX-ACCESS	read-write
+	STATUS		current
+	DESCRIPTION	
+		"Open = TX off, Close = Enable XTMR."
+	DEFVAL { 0 }
+	::= { parallaxReadWriteA4 7 }
+
+InterlockB4 OBJECT-TYPE
+	SYNTAX		OCTET STRING (SIZE(8))
+	MAX-ACCESS	read-write
+	STATUS		current
+	DESCRIPTION	
+		"Open = TX off, Close = Enable XTMR."
+	DEFVAL { 0 }
+	::= { parallaxReadWriteB4 7 }
+
+desiredForwardPowerA4 OBJECT-TYPE
+	SYNTAX		OCTET STRING (SIZE(8))
+	MAX-ACCESS	read-write
+	STATUS		current
+	DESCRIPTION	
+		"Set the desired value for Forward Power."
+	DEFVAL { 0 }
+	::= { parallaxReadWriteA4 8 }
+
+desiredForwardPowerB4 OBJECT-TYPE
+	SYNTAX		OCTET STRING (SIZE(8))
+	MAX-ACCESS	read-write
+	STATUS		current
+	DESCRIPTION	
+		"Set the desired value for Forward Power."
+	DEFVAL { 0 }
+	::= { parallaxReadWriteB4 8 }
+
+licensedTPOA4 OBJECT-TYPE
+	SYNTAX		OCTET STRING (SIZE(8))
+	MAX-ACCESS	read-write
+	STATUS		current
+	DESCRIPTION	
+		"Set the Value for License TPO."
+	DEFVAL { 0 }
+	::= { parallaxReadWriteA4 9 }
+
+licensedTPOB4 OBJECT-TYPE
+	SYNTAX		OCTET STRING (SIZE(8))
+	MAX-ACCESS	read-write
+	STATUS		current
+	DESCRIPTION	
+		"Set the Value for License TPO."
+	DEFVAL { 0 }
+	::= { parallaxReadWriteB4 9 }
+
+--
+-- Read only objects Cabinet 4
+--
+
+forwardPowerA4 OBJECT-TYPE
+	SYNTAX		OCTET STRING (SIZE(8))
+	MAX-ACCESS 	read-write
+	STATUS		current
+	DESCRIPTION
+		""The current forward power output of the Parallax transmitter measured in watts."
+	DEFVAL { 0 }
+	::= { parallaxReadOnlyA4 1 }
+
+forwardPowerB4 OBJECT-TYPE
+	SYNTAX		INTEGER
+	MAX-ACCESS 	read-write
+	STATUS		current
+	DESCRIPTION
+		"The current forward power output of the Parallax transmitter measured in watts."
+	DEFVAL { 0 }
+	::= { parallaxReadOnlyB4 1 }
+
+forwardPowerPercentA4 OBJECT-TYPE
+	SYNTAX		OCTET STRING (SIZE(8))
+	MAX-ACCESS 	read-only
+	STATUS		current
+	DESCRIPTION
+		"The current forward power output of the Parallax transmitter measured as a percentage of the transmitter's total power output allotted by the FCC."
+	DEFVAL { 0 }
+	::= { parallaxReadOnlyA4 2 }
+
+forwardPowerPercentB4 OBJECT-TYPE
+	SYNTAX		OCTET STRING (SIZE(8))
+	MAX-ACCESS 	read-only
+	STATUS		current
+	DESCRIPTION
+		"The current forward power output of the Parallax transmitter measured as a percentage of the transmitter's total power output allotted by the FCC."
+	DEFVAL { 0 }
+	::= { parallaxReadOnlyB4 2 }
+
+reflectedPowerA4 OBJECT-TYPE
+	SYNTAX		OCTET STRING (SIZE(8))
+	MAX-ACCESS	read-only
+	STATUS		current
+	DESCRIPTION
+		"The current reflected power of the Parallax transmitter measured as a percentage."
+	DEFVAL { 0 }
+	::= { parallaxReadOnlyA4 3 }
+
+reflectedPowerB4 OBJECT-TYPE
+	SYNTAX		OCTET STRING (SIZE(8))
+	MAX-ACCESS	read-only
+	STATUS		current
+	DESCRIPTION
+		"The current reflected power of the Parallax transmitter measured as a percentage."
+	DEFVAL { 0 }
+	::= { parallaxReadOnlyB4 3 }
+
+upperShoulderA4 OBJECT-TYPE
+	SYNTAX		OCTET STRING (SIZE(8))
+	MAX-ACCESS	read-only
+	STATUS		current
+	DESCRIPTION	
+		"The upper shoulder value, meausered from the exciter."
+	DEFVAL { 0 }
+	::= { parallaxReadOnlyA4 4 }
+
+upperShoulderB4 OBJECT-TYPE
+	SYNTAX		OCTET STRING (SIZE(8))
+	MAX-ACCESS	read-only
+	STATUS		current
+	DESCRIPTION	
+		"The upper shoulder value, meausered from the exciter."
+	DEFVAL { 0 }
+	::= { parallaxReadOnlyB4 4 }
+
+lowerShoulderA4 OBJECT-TYPE
+	SYNTAX		OCTET STRING (SIZE(8))
+	MAX-ACCESS	read-only
+	STATUS		current
+	DESCRIPTION	
+		"The lower shoulder value, meausered from the exciter."
+	DEFVAL { 0 }
+	::= { parallaxReadOnlyA4 5 }
+
+lowerShoulderB4 OBJECT-TYPE
+	SYNTAX		OCTET STRING (SIZE(8))
+	MAX-ACCESS	read-only
+	STATUS		current
+	DESCRIPTION	
+		"The lower shoulder value, meausered from the exciter."
+	DEFVAL { 0 }
+	::= { parallaxReadOnlyB4 5 }
+
+VSWRstatusA4 OBJECT-TYPE
+	SYNTAX		OCTET STRING (SIZE(8))
+	MAX-ACCESS	read-only
+	STATUS		current
+	DESCRIPTION	
+		"High reflected power."
+	DEFVAL { 0 }
+	::= { parallaxReadOnlyA4 6 }
+
+VSWRstatusB4 OBJECT-TYPE
+	SYNTAX		OCTET STRING (SIZE(8))
+	MAX-ACCESS	read-only
+	STATUS		current
+	DESCRIPTION	
+		"High reflected power."
+	DEFVAL { 0 }
+	::= { parallaxReadOnlyB4 6 }
+
+--
+-- Nodes for cabinet 4
+--
+
+PowerSupplyNode4 OBJECT-TYPE
+	SYNTAX		OCTET STRING (SIZE(8))
+	MAX-ACCESS 	read-only
+	STATUS		current
+	DESCRIPTION
+		"Power Supply Node Data."
+	DEFVAL { 1 }
+	::= { parallaxCabinetNodes4 1 }
+
+RFSwitchNodeA4 OBJECT-TYPE
+	SYNTAX		OCTET STRING (SIZE(8))
+	MAX-ACCESS 	read-only
+	STATUS		current
+	DESCRIPTION
+		"RF Switch Node Data, transmitter A."
+	DEFVAL { 1 }
+	::= { parallaxCabinetNodes4 2 }
+
+RFSwitchNodeB4 OBJECT-TYPE
+	SYNTAX		OCTET STRING (SIZE(8))
+	MAX-ACCESS 	read-only
+	STATUS		current
+	DESCRIPTION
+		"RF Switch Node Data, transmitter B."
+	DEFVAL { 1 }
+	::= { parallaxCabinetNodes4 3 }
+
+InternalTemperatureNode4 OBJECT-TYPE
+	SYNTAX		OCTET STRING (SIZE(8))
+	MAX-ACCESS 	read-only
+	STATUS		current
+	DESCRIPTION
+		"Internal Temperature Node Data."
+	DEFVAL { 1 }
+	::= { parallaxCabinetNodes4 4 }
+
+ExternalNode4 OBJECT-TYPE
+	SYNTAX		OCTET STRING (SIZE(8))
+	MAX-ACCESS 	read-only
+	STATUS		current
+	DESCRIPTION
+		"External Node Data."
+	DEFVAL { 1 }
+	::= { parallaxCabinetNodes4 5 }
+
+1RFLoadNode4 OBJECT-TYPE
+	SYNTAX		OCTET STRING (SIZE(8))
+	MAX-ACCESS 	read-only
+	STATUS		current
+	DESCRIPTION
+		"RF Load Node #1 Data."
+	DEFVAL { 1 }
+	::= { parallaxCabinetNodes4 6 }
+
+2RFLoadNode4 OBJECT-TYPE
+	SYNTAX		OCTET STRING (SIZE(8))
+	MAX-ACCESS 	read-only
+	STATUS		current
+	DESCRIPTION
+		"RF Load Node #2 Data."
+	DEFVAL { 1 }
+	::= { parallaxCabinetNodes4 7 }
+
+3RFLoadNode4 OBJECT-TYPE
+	SYNTAX		OCTET STRING (SIZE(8))
+	MAX-ACCESS 	read-only
+	STATUS		current
+	DESCRIPTION
+		"RF Load Node #3 Data."
+	DEFVAL { 1 }
+	::= { parallaxCabinetNodes4 8 }
+
+4RFLoadNode4 OBJECT-TYPE
+	SYNTAX		OCTET STRING (SIZE(8))
+	MAX-ACCESS 	read-only
+	STATUS		current
+	DESCRIPTION
+		"RF Load Node #4 Data."
+	DEFVAL { 1 }
+	::= { parallaxCabinetNodes4 9 }
+
+RFPhaseNode4 OBJECT-TYPE
+	SYNTAX		OCTET STRING (SIZE(8))
+	MAX-ACCESS 	read-only
+	STATUS		current
+	DESCRIPTION
+		"RF Phase Node Data."
+	DEFVAL { 1 }
+	::= { parallaxCabinetNodes4 10 }
+
+--
+-- Parallax Faults for Cabinet 4
+--
+
+AmpliferFault4 OBJECT-TYPE
+	SYNTAX		INTEGER
+	MAX-ACCESS	read-write
+	STATUS		current
+	DESCRIPTION
+		"Parallax Amplifier fault triggered."
+	DEFVAL { 0 }
+	::= { parallaxCabinetFaults4 1 }
+
+AGCSwitchFault4 OBJECT-TYPE
+	SYNTAX		INTEGER
+	MAX-ACCESS	read-write
+	STATUS		current
+	DESCRIPTION
+		"Parallax AGC Switch fault triggered."
+	DEFVAL { 0 }
+	::= { parallaxCabinetFaults4 2 }
+
+CriticalFault4 OBJECT-TYPE
+	SYNTAX		INTEGER
+	MAX-ACCESS	read-write
+	STATUS		current
+	DESCRIPTION
+		"Parallax critical fault triggered."
+	DEFVAL { 0 }
+	::= { parallaxCabinetFaults4 3 }
+
+ExciterFault4 OBJECT-TYPE
+	SYNTAX		INTEGER
+	MAX-ACCESS	read-write
+	STATUS		current
+	DESCRIPTION
+		"Parallax exciter fault triggered."
+	DEFVAL { 0 }
+	::= { parallaxCabinetFaults4 4 }
+
+PreampFault4 OBJECT-TYPE
+	SYNTAX		INTEGER
+	MAX-ACCESS	read-write
+	STATUS		current
+	DESCRIPTION
+		"Parallax preamp fault triggered."
+	DEFVAL { 0 }
+	::= { parallaxCabinetFaults4 5 }
+
+CoolingFault4 OBJECT-TYPE
+	SYNTAX		INTEGER
+	MAX-ACCESS	read-write
+	STATUS		current
+	DESCRIPTION
+		"Parallax cooling fault triggered."
+	DEFVAL { 0 }
+	::= { parallaxCabinetFaults4 6 }
+
+OutputFault4 OBJECT-TYPE
+	SYNTAX		INTEGER
+	MAX-ACCESS	read-write
+	STATUS		current
+	DESCRIPTION
+		"Parallax output fault triggered."
+	DEFVAL { 0 }
+	::= { parallaxCabinetFaults4 7 }
+
+PowerSupplyFault4 OBJECT-TYPE
+	SYNTAX		INTEGER
+	MAX-ACCESS	read-write
+	STATUS		current
+	DESCRIPTION
+		"Parallax power supply fault triggered."
+	DEFVAL { 0 }
+	::= { parallaxCabinetFaults4 8 }
+
+--
+-- Other Varaibles for Cabinet 4
+--
+
+activeCooling4 OBJECT-TYPE
+	SYNTAX		INTEGER
+	MAX-ACCESS 	read-write
+	STATUS		current
+	DESCRIPTION
+		"Reflects the cooling pump that is currently active."
+	DEFVAL { 1 }
+	::= { parallaxVariables4 5 }
+
+coolantLevel4 OBJECT-TYPE
+	SYNTAX		INTEGER
+	MAX-ACCESS	read-only
+	STATUS		current
+	DESCRIPTION
+		"Indicates the state of the coolant level in the tank. Can either be normal, at a warning level, or fault."
+	DEFVAL { 0 }
+	::= { parallaxVariables4 6 }
+
+coolantTankTemp4 OBJECT-TYPE
+	SYNTAX		OCTET STRING (SIZE(8))
+	MAX-ACCESS	read-only
+	STATUS		current
+	DESCRIPTION
+		"The temperature of the coolant tank, measured in Celcius."
+	DEFVAL { 0 }
+	::= { parallaxVariables4 7 }
+
+heatExchangerFlow4 OBJECT-TYPE
+	SYNTAX		OCTET STRING (SIZE(8))
+	MAX-ACCESS	read-only
+	STATUS		current
+	DESCRIPTION
+		"The current flow rate of the heat exchanger, measured in gallons per minute."
+	DEFVAL { 0 }
+	::= { parallaxVariables4 8 }
+
+inletTemperature4 OBJECT-TYPE
+	SYNTAX		OCTET STRING (SIZE(8))
+	MAX-ACCESS	read-only
+	STATUS		current
+	DESCRIPTION
+		"The temperature of the coolant measured at the inlet, measured in Celcius."
+	DEFVAL { 0 }
+	::= { parallaxVariables4 9 }
+
+outletTemperature4 OBJECT-TYPE
+	SYNTAX		OCTET STRING (SIZE(8))
+	MAX-ACCESS	read-only
+	STATUS		current
+	DESCRIPTION
+		"The temperature of the coolant measured at the outlet, measured in Celcius."
+	DEFVAL { 0 }
+	::= { parallaxVariables4 10 }
+
+cabinetAirTemperature4 OBJECT-TYPE
+	SYNTAX		OCTET STRING (SIZE(8))
+	MAX-ACCESS	read-only
+	STATUS		current
+	DESCRIPTION
+		"The current air temperature inside the Parallax transmitter cabinet."
+	DEFVAL { 0 }
+	::= { parallaxVariables4 11 }
+
+powerSupply1Voltage4 OBJECT-TYPE
+	SYNTAX		OCTET STRING (SIZE(8))
+	MAX-ACCESS	read-only
+	STATUS		current
+	DESCRIPTION	
+		"The voltage of power supply 1"
+	DEFVAL { 0 }
+	::= { parallaxVariables4 12 }
+
+powerSupply2Voltage4 OBJECT-TYPE
+	SYNTAX		OCTET STRING (SIZE(8))
+	MAX-ACCESS	read-only
+	STATUS		current
+	DESCRIPTION	
+		"The voltage of power supply 2"
+	DEFVAL { 0 }
+	::= { parallaxVariables4 13 }
+
+END
